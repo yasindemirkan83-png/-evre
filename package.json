@@ -1,0 +1,18 @@
+{
+  "name": "cevre1-guvenlik",
+  "version": "1.0.0",
+  "description": "Çevre-1 Güvenlik Müdürlüğü Olay Tutanak Sistemi",
+  "scripts": {
+    "build": "echo 'static html, no build needed'",
+    "cap:add": "cap add android",
+    "cap:sync": "cap sync android",
+    "cap:open": "cap open android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/core": "^6.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.0.0"
+  }
+}

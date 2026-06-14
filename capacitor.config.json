@@ -1,0 +1,11 @@
+{
+  "appId": "com.cevre1.guvenlik",
+  "appName": "Çevre-1 Rapor",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "android": {
+    "allowMixedContent": false,
+    "captureInput": true,
+    "webContentsDebuggingEnabled": false
+  }
+}
