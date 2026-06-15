@@ -13,7 +13,6 @@
   }
   body { font-family:'Segoe UI',Arial,sans-serif; background:var(--bg); color:var(--text); min-height:100vh; overscroll-behavior:none; }
 
-  /* HEADER */
   .app-header {
     background:linear-gradient(135deg,var(--navy),var(--navy-mid));
     color:#fff; padding:14px 16px 10px; display:flex; align-items:center; gap:12px;
@@ -26,16 +25,13 @@
   #clock { font-size:18px;font-weight:700;color:#fff; }
   #dateH { font-size:10px;color:var(--silver); }
 
-  /* TABS */
   .tabs { display:flex;background:var(--navy);border-top:1px solid rgba(255,255,255,0.08);overflow-x:auto; }
   .tab-btn { flex:1;min-width:60px;padding:9px 4px;font-size:10px;font-weight:600;color:var(--silver);background:none;border:none;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap; }
   .tab-btn.active { color:#fff;border-bottom-color:var(--blue-light); }
 
-  /* PANEL */
   .panel { display:none;padding:14px 14px 110px; }
   .panel.active { display:block; }
 
-  /* CARD */
   .card { background:var(--white);border-radius:10px;padding:14px;margin-bottom:12px;border:1px solid var(--border);box-shadow:0 1px 4px rgba(26,39,68,0.06); }
   .card-label { font-size:10px;font-weight:700;letter-spacing:.8px;color:var(--blue);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:6px; }
   .card-label::after { content:'';flex:1;height:1px;background:var(--border); }
@@ -57,28 +53,22 @@
 
   .auto-badge { display:inline-flex;align-items:center;font-size:9px;font-weight:700;color:var(--success);background:#e8f8ef;border-radius:4px;padding:2px 5px;margin-left:4px; }
 
-  /* VARDİYA */
   .vardiya-group { display:flex;gap:8px;flex-wrap:wrap;margin-top:4px; }
   .v-btn { padding:9px 14px;border-radius:7px;border:1.5px solid var(--border);font-size:13px;font-weight:600;color:var(--muted);background:#f8fafc;cursor:pointer;transition:all .15s; }
   .v-btn.selected { background:var(--blue);color:#fff;border-color:var(--blue); }
 
-  /* PREVIEW */
   .preview-box { background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:18px 16px;font-size:13px;line-height:1.9;white-space:pre-wrap;color:var(--text);font-family:'Courier New',monospace;min-height:200px; }
 
-  /* ACTION BAR */
   .action-bar { position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--border);padding:10px 14px 20px;box-shadow:0 -3px 12px rgba(0,0,0,0.08); }
   .action-row { display:flex;gap:8px; }
-  .action-row + .action-row { margin-top:8px; }
+  .action-row+.action-row { margin-top:8px; }
   .btn-p { flex:2;padding:13px;background:linear-gradient(135deg,var(--blue),var(--blue-light));color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer; }
   .btn-s { flex:1;padding:13px;background:var(--bg);color:var(--navy);border:1.5px solid var(--border);border-radius:10px;font-size:12px;font-weight:600;cursor:pointer; }
   .btn-g { flex:1;padding:13px;background:#e8f8ef;color:var(--success);border:1.5px solid #b7e4c7;border-radius:10px;font-size:12px;font-weight:600;cursor:pointer; }
-  .btn-w { flex:1;padding:13px;background:#fff8ee;color:var(--warn);border:1.5px solid #f5d9a8;border-radius:10px;font-size:12px;font-weight:600;cursor:pointer; }
 
-  /* TOAST */
   .toast { position:fixed;top:80px;left:50%;transform:translateX(-50%) translateY(-20px);background:var(--success);color:#fff;padding:10px 22px;border-radius:20px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;white-space:nowrap; }
   .toast.show { opacity:1;transform:translateX(-50%) translateY(0); }
 
-  /* LIST ITEMS */
   .item-list { margin-top:6px; }
   .list-item { display:flex;align-items:center;gap:6px;padding:9px 10px;background:#f5f8ff;border:1px solid var(--border);border-radius:7px;margin-bottom:6px; }
   .list-item input[type=text] { flex:1;border:none;background:transparent;font-size:13px;padding:0; }
@@ -87,50 +77,40 @@
   .btn-add { width:100%;padding:11px;border:2px dashed var(--blue-light);border-radius:8px;background:#f0f5ff;color:var(--blue);font-size:13px;font-weight:600;cursor:pointer;margin-top:8px; }
   .section-note { font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.5; }
 
-  /* TASLAK & RAPOR KARTLARI */
-  .tas-card {
-    background:var(--white);border:1px solid var(--border);border-radius:10px;
-    padding:12px 14px;margin-bottom:10px;box-shadow:0 1px 4px rgba(26,39,68,0.05);
-  }
-  .tas-card-top { display:flex;align-items:flex-start;justify-content:space-between;gap:8px; }
-  .tas-card-name { font-size:13px;font-weight:700;color:var(--navy);flex:1; }
-  .tas-card-date { font-size:10px;color:var(--muted);white-space:nowrap;margin-top:2px; }
+  /* TASLAK KARTLARI */
+  .tas-card { background:var(--white);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:10px;box-shadow:0 1px 4px rgba(26,39,68,0.05); }
+  .tas-card-name { font-size:13px;font-weight:700;color:var(--navy); }
+  .tas-card-date { font-size:10px;color:var(--muted);margin-top:2px; }
   .tas-card-konu { font-size:11px;color:var(--blue);margin-top:4px; }
   .tas-card-acik { font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden; }
   .tas-card-btns { display:flex;gap:6px;margin-top:10px; }
   .btn-yukle { flex:2;padding:8px;background:var(--blue);color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer; }
   .btn-sil-k { flex:1;padding:8px;background:#fff5f5;color:var(--danger);border:1px solid #f5c6c6;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer; }
 
-  .rap-card {
-    background:var(--white);border:1px solid var(--border);border-radius:10px;
-    padding:12px 14px;margin-bottom:10px;box-shadow:0 1px 4px rgba(26,39,68,0.05);
-  }
-  .rap-card-top { display:flex;align-items:center;justify-content:space-between; }
-  .rap-card-title { font-size:12px;font-weight:700;color:var(--navy); }
-  .rap-card-time { font-size:10px;color:var(--muted); }
-  .rap-card-preview { font-size:11px;color:var(--muted);margin-top:6px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-family:'Courier New',monospace; }
-  .rap-card-btns { display:flex;gap:6px;margin-top:10px; }
-  .btn-kop { flex:2;padding:8px;background:var(--blue);color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer; }
-  .btn-gos { flex:1;padding:8px;background:#f0f5ff;color:var(--blue);border:1px solid var(--border);border-radius:7px;font-size:12px;font-weight:600;cursor:pointer; }
-
   .empty-state { text-align:center;padding:40px 20px;color:var(--muted); }
   .empty-state .ico { font-size:40px;margin-bottom:10px; }
-  .empty-state p { font-size:13px; }
+  .empty-state p { font-size:13px;line-height:1.6; }
 
   .save-indicator { display:inline-flex;align-items:center;font-size:10px;color:var(--success);font-weight:600;margin-left:8px;opacity:0;transition:opacity .4s; }
   .save-indicator.show { opacity:1; }
 
+  /* VERİ YÖNETİMİ BUTONLARI */
+  .veri-btn { width:100%;padding:12px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px; }
+  .veri-btn-export { background:#e8f8ef;color:var(--success);border:1.5px solid #b7e4c7; }
+  .veri-btn-import { background:#eef4ff;color:var(--blue);border:1.5px solid #b3cdf5; }
+  .veri-btn-reset  { background:#fff5f5;color:var(--danger);border:1.5px solid #f5c6c6; }
+
   /* MODAL */
   .modal-bg { display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:center;justify-content:center;padding:20px; }
   .modal-bg.open { display:flex; }
-  .modal { background:#fff;border-radius:14px;padding:20px;width:100%;max-width:400px;max-height:80vh;overflow-y:auto; }
-  .modal h3 { font-size:15px;font-weight:700;margin-bottom:12px; }
+  .modal { background:#fff;border-radius:14px;padding:20px;width:100%;max-width:400px; }
+  .modal h3 { font-size:15px;font-weight:700;margin-bottom:8px; }
+  .modal p { font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.5; }
   .modal-btns { display:flex;gap:8px;margin-top:14px; }
   .modal-btns button { flex:1;padding:11px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer; }
   .btn-modal-ok { background:var(--blue);color:#fff;border:none; }
   .btn-modal-cancel { background:var(--bg);color:var(--navy);border:1.5px solid var(--border); }
-
-  .rap-full { background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12px;line-height:1.8;white-space:pre-wrap;font-family:'Courier New',monospace;max-height:50vh;overflow-y:auto;margin-top:8px; }
+  .btn-modal-danger { background:var(--danger);color:#fff;border:none; }
 </style>
 </head>
 <body>
@@ -150,7 +130,6 @@
 <div class="tabs">
   <button class="tab-btn active" onclick="switchTab('form',this)">📝 Form</button>
   <button class="tab-btn" onclick="switchTab('taslaklar',this)">📌 Taslaklar</button>
-  <button class="tab-btn" onclick="switchTab('raporlar',this)">🗂️ Raporlar</button>
   <button class="tab-btn" onclick="switchTab('onizleme',this)">👁️ Önizleme</button>
   <button class="tab-btn" onclick="switchTab('ayarlar',this)">⚙️ Ayarlar</button>
 </div>
@@ -172,13 +151,11 @@
     <label>Vardiya</label>
     <div class="vardiya-group" id="vardiyaGroup"></div>
   </div>
-
   <div class="card">
     <div class="card-label">Konu</div>
     <label>Konu Başlığı</label>
     <input type="text" id="konu" placeholder="Etkinlik / olay konusunu yazın..." oninput="kaydet()">
   </div>
-
   <div class="card">
     <div class="card-label">Açıklama</div>
     <label>Park / Alan</label>
@@ -196,11 +173,6 @@
     <button class="btn-add" style="margin-top:0;" onclick="taslagiKaydet()">💾 Mevcut Formu Taslak Olarak Kaydet</button>
   </div>
   <div id="taslaklarListesi"></div>
-</div>
-
-<!-- RAPORLAR -->
-<div id="panel-raporlar" class="panel">
-  <div id="raporlarListesi"></div>
 </div>
 
 <!-- ÖNİZLEME -->
@@ -237,8 +209,11 @@
   </div>
   <div class="card">
     <div class="card-label">Veri Yönetimi</div>
-    <p class="section-note">Tüm veriler cihazda saklanır. İnternet bağlantısı gerekmez.</p>
-    <button class="btn-add" style="border-color:#c0392b;color:#c0392b;background:#fff5f5;margin-top:4px;" onclick="tumVeriSil()">🗑️ Tüm Verileri Sıfırla</button>
+    <p class="section-note">Taslaklar ve tüm ayarlarınızı yedekleyip geri yükleyebilirsiniz. Telefon değişince yedeği içe aktarın.</p>
+    <button class="veri-btn veri-btn-export" onclick="veriDisariAktar()">📤 Verileri Dışa Aktar (Yedek Al)</button>
+    <button class="veri-btn veri-btn-import" onclick="el('importDosya').click()">📥 Verileri İçe Aktar (Yedek Yükle)</button>
+    <input type="file" id="importDosya" accept=".json" style="display:none" onchange="veriIceAktar(this)">
+    <button class="veri-btn veri-btn-reset" onclick="tumVeriSil()">🗑️ Tüm Verileri Sıfırla</button>
   </div>
 </div>
 
@@ -252,7 +227,6 @@
   </div>
   <div class="action-row">
     <button class="btn-g" onclick="taslagiKaydet()">💾 Taslak Kaydet</button>
-    <button class="btn-w" onclick="raporuKaydet()">🗂️ Raporu Kaydet</button>
   </div>
 </div>
 
@@ -260,8 +234,8 @@
 <div class="modal-bg" id="tasModal">
   <div class="modal">
     <h3>💾 Taslak Adı</h3>
-    <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Bu taslağa bir isim ver (ör: Etkinlik Taslağı, Standart Rapor)</p>
-    <input type="text" id="tasIsim" placeholder="Taslak adı..." style="margin-bottom:4px;">
+    <p>Bu taslağa bir isim ver (ör: Etkinlik Taslağı, Standart Rapor)</p>
+    <input type="text" id="tasIsim" placeholder="Taslak adı...">
     <div class="modal-btns">
       <button class="btn-modal-cancel" onclick="modalKapat('tasModal')">İptal</button>
       <button class="btn-modal-ok" onclick="taslagiKaydetOnayla()">Kaydet</button>
@@ -269,36 +243,18 @@
   </div>
 </div>
 
-<!-- Rapor tam görüntü modalı -->
-<div class="modal-bg" id="rapModal">
-  <div class="modal">
-    <h3 id="rapModalBaslik">Rapor</h3>
-    <div class="rap-full" id="rapModalIcerik"></div>
-    <div class="modal-btns">
-      <button class="btn-modal-cancel" onclick="modalKapat('rapModal')">Kapat</button>
-      <button class="btn-modal-ok" onclick="rapModalKopyala()">📋 Kopyala</button>
-    </div>
-  </div>
-</div>
-
 <script>
-// ══════════════════════════════
-// VERİ
-// ══════════════════════════════
 const LS='cevre1_v5';
 const DEF={
   bolgeAdi:'DİKMEN BÖLGESİ',
   vardiyalar:['08:00/20:00','20:00/08:00'],
-  parklar:['Öveçler Vadisi Rekreasyon Alanı 1. Etap','Öveçler Vadisi Rekreasyon Alanı 2. Etap','Dikmen Vadisi Parkı','Atatürk Orman Çiftliği Alanı','Botanik Parkı'],
+  parklar:['Öveçler Vadisi Rekreasyon Alanı 1. Etap','Öveçler Vadisi Rekreasyon Alanı 2. Etap','Dikmen Vadisi Parkı','Botanik Parkı'],
   form:{raporTarih:'',raporSaat:'',seciliVardiya:'08:00/20:00',parkSec:'',konu:'',aciklama:''},
-  taslaklar:[],
-  raporlar:[]
+  taslaklar:[]
 };
 let D=JSON.parse(JSON.stringify(DEF));
 
-function yukle(){
-  try{const r=localStorage.getItem(LS);if(r){const s=JSON.parse(r);D=dm(JSON.parse(JSON.stringify(DEF)),s);}}catch(e){}
-}
+function yukle(){try{const r=localStorage.getItem(LS);if(r){const s=JSON.parse(r);D=dm(JSON.parse(JSON.stringify(DEF)),s);}}catch(e){}}
 function dm(t,s){for(const k in s){if(s[k]&&typeof s[k]==='object'&&!Array.isArray(s[k]))t[k]=dm(t[k]||{},s[k]);else t[k]=s[k];}return t;}
 
 let st=null;
@@ -310,35 +266,78 @@ function kaydet(){
   D.form.konu=v('konu');
   D.form.aciklama=v('aciklama');
   clearTimeout(st);
-  st=setTimeout(()=>{
-    try{localStorage.setItem(LS,JSON.stringify(D));const i=el('saveIndicator');i.classList.add('show');setTimeout(()=>i.classList.remove('show'),1800);}catch(e){}
-  },500);
+  st=setTimeout(()=>{try{localStorage.setItem(LS,JSON.stringify(D));const i=el('saveIndicator');i.classList.add('show');setTimeout(()=>i.classList.remove('show'),1800);}catch(e){}},500);
 }
-function tumVeriSil(){if(confirm('Tüm veriler silinecek. Emin misiniz?')){localStorage.removeItem(LS);D=JSON.parse(JSON.stringify(DEF));init();showToast('🗑️ Sıfırlandı');}}
 
-// ══════════════════════════════
-// YARDIMCI
-// ══════════════════════════════
+// ── VERİ DIŞA/İÇE AKTAR ──
+function veriDisariAktar(){
+  try{
+    const yedek={
+      versiyon:1,
+      tarih: nowLabel(),
+      bolgeAdi:D.bolgeAdi,
+      vardiyalar:D.vardiyalar,
+      parklar:D.parklar,
+      taslaklar:D.taslaklar
+    };
+    const blob=new Blob([JSON.stringify(yedek,null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;
+    a.download=`cevre1-yedek-${nowDosyaAdi()}.json`;
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('📤 Yedek dosyası indirildi!');
+  }catch(e){showToast('❌ Dışa aktarma hatası');}
+}
+
+function veriIceAktar(input){
+  const f=input.files[0];if(!f)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const yedek=JSON.parse(e.target.result);
+      if(!yedek.taslaklar&&!yedek.parklar){showToast('❌ Geçersiz yedek dosyası');return;}
+      if(yedek.bolgeAdi)D.bolgeAdi=yedek.bolgeAdi;
+      if(yedek.vardiyalar)D.vardiyalar=yedek.vardiyalar;
+      if(yedek.parklar)D.parklar=yedek.parklar;
+      if(yedek.taslaklar)D.taslaklar=yedek.taslaklar;
+      localStorage.setItem(LS,JSON.stringify(D));
+      init();
+      showToast('📥 Veriler başarıyla yüklendi!');
+    }catch(err){showToast('❌ Dosya okunamadı');}
+  };
+  reader.readAsText(f);
+  input.value='';
+}
+
+function tumVeriSil(){
+  const yedekIste=confirm('Silmeden önce yedek almak ister misiniz?');
+  if(yedekIste) veriDisariAktar();
+  setTimeout(()=>{
+    const emin=confirm('Tüm veriler, taslaklar ve ayarlar silinecek. Emin misiniz?');
+    if(emin){
+      localStorage.removeItem(LS);
+      D=JSON.parse(JSON.stringify(DEF));
+      init();
+      showToast('🗑️ Tüm veriler sıfırlandı');
+    }
+  }, yedekIste ? 800 : 0);
+}
+
+// ── YARDIMCI ──
 function el(id){return document.getElementById(id);}
 function v(id){return el(id)?el(id).value:'';}
 function padZ(n){return String(n).padStart(2,'0');}
 function nowStr(){const d=new Date();return{ti:`${d.getFullYear()}-${padZ(d.getMonth()+1)}-${padZ(d.getDate())}`,sa:`${padZ(d.getHours())}:${padZ(d.getMinutes())}`};}
-function fTarih(v){if(!v)return'';const p=v.split('-');return`${p[2]}.${p[1]}.${p[0]}`;}
 function nowLabel(){const d=new Date();return`${padZ(d.getDate())}.${padZ(d.getMonth()+1)}.${d.getFullYear()} ${padZ(d.getHours())}:${padZ(d.getMinutes())}`;}
+function nowDosyaAdi(){const d=new Date();return`${d.getFullYear()}${padZ(d.getMonth()+1)}${padZ(d.getDate())}-${padZ(d.getHours())}${padZ(d.getMinutes())}`;}
+function fTarih(val){if(!val)return'';const p=val.split('-');return`${p[2]}.${p[1]}.${p[0]}`;}
 function updateClock(){const t=new Date();el('clock').textContent=`${padZ(t.getHours())}:${padZ(t.getMinutes())}:${padZ(t.getSeconds())}`;el('dateH').textContent=`${padZ(t.getDate())}.${padZ(t.getMonth()+1)}.${t.getFullYear()}`;}
 setInterval(updateClock,1000);updateClock();
+function parkEki(p){if(!p)return'';if(/Etap$/.test(p))return p+"'ta";const s=p.trim().slice(-1).toLowerCase();if('aıou'.includes(s))return p+"'da";return p+"'de";}
 
-function parkEki(p){
-  if(!p)return'';
-  if(/Etap$/.test(p))return p+"'ta";
-  const s=p.trim().slice(-1).toLowerCase();
-  if('aıou'.includes(s))return p+"'da";
-  return p+"'de";
-}
-
-// ══════════════════════════════
-// VARDİYA
-// ══════════════════════════════
+// ── VARDİYA ──
 function renderVardiyaButtons(){
   const g=el('vardiyaGroup');g.innerHTML='';
   D.vardiyalar.forEach(vv=>{const b=document.createElement('button');b.className='v-btn'+(D.form.seciliVardiya===vv?' selected':'');b.textContent=vv;b.onclick=()=>secVardiya(b,vv);g.appendChild(b);});
@@ -351,9 +350,7 @@ function renderVardiyaList(){
 function vardiyaEkle(){D.vardiyalar.push('08:00/20:00');renderVardiyaList();renderVardiyaButtons();kaydet();}
 function vardiyaSil(i){D.vardiyalar.splice(i,1);if(!D.vardiyalar.includes(D.form.seciliVardiya)&&D.vardiyalar.length>0)D.form.seciliVardiya=D.vardiyalar[0];renderVardiyaList();renderVardiyaButtons();kaydet();}
 
-// ══════════════════════════════
-// PARK
-// ══════════════════════════════
+// ── PARK ──
 function renderParkSelect(){
   const s=el('parkSec');const c=D.form.parkSec;s.innerHTML='<option value="">— Park seçin —</option>';
   D.parklar.forEach(p=>{const o=document.createElement('option');o.value=p;o.textContent=p;if(p===c)o.selected=true;s.appendChild(o);});
@@ -366,9 +363,18 @@ function renderParkList(){
 function parkEkle(){D.parklar.push('Yeni Park');renderParkList();renderParkSelect();kaydet();}
 function parkSil(i){D.parklar.splice(i,1);renderParkList();renderParkSelect();kaydet();}
 
-// ══════════════════════════════
-// RAPOR BUILD
-// ══════════════════════════════
+// ── TAB ──
+function switchTab(name,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  el('panel-'+name).classList.add('active');btn.classList.add('active');
+  el('formActions').style.display=(name==='form')?'block':'none';
+  if(name==='onizleme')el('previewBox').textContent=buildRapor();
+  if(name==='ayarlar'){renderVardiyaList();renderParkList();}
+  if(name==='taslaklar')renderTaslaklar();
+}
+
+// ── RAPOR ──
 function buildRapor(){
   const bolge=(D.bolgeAdi||'DİKMEN BÖLGESİ').toUpperCase();
   const konu=v('konu')||'—';
@@ -389,40 +395,37 @@ function buildRapor(){
   return m;
 }
 
-// ══════════════════════════════
-// TASLAKLAR
-// ══════════════════════════════
-function taslagiKaydet(){
-  // form verilerini önce kaydet
-  kaydet();
-  el('tasIsim').value='';
-  el('tasModal').classList.add('open');
-  setTimeout(()=>el('tasIsim').focus(),200);
+function raporOlustur(){
+  const rapor=buildRapor();
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  el('panel-onizleme').classList.add('active');
+  document.querySelectorAll('.tab-btn')[2].classList.add('active');
+  el('previewBox').textContent=rapor;
+  el('formActions').style.display='none';
+  kopyala(rapor,true);
 }
+
+function kopyala(metin,toast=false){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(metin).then(()=>{if(toast)showToast('✅ Rapor kopyalandı!');}).catch(()=>{kopyalaEski(metin);if(toast)showToast('📋 Rapor hazır!');});
+  }else{kopyalaEski(metin);if(toast)showToast('✅ Kopyalandı!');}
+}
+function kopyalaEski(m){const t=document.createElement('textarea');t.value=m;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);}
+function showToast(msg){const t=el('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+
+// ── TASLAKLAR ──
+function taslagiKaydet(){kaydet();el('tasIsim').value='';el('tasModal').classList.add('open');setTimeout(()=>el('tasIsim').focus(),200);}
 function taslagiKaydetOnayla(){
   const isim=el('tasIsim').value.trim()||'İsimsiz Taslak';
-  const n=nowStr();
-  const tas={
-    id:Date.now(),
-    isim,
-    tarihLabel:nowLabel(),
-    bolgeAdi:D.bolgeAdi,
-    seciliVardiya:D.form.seciliVardiya,
-    parkSec:D.form.parkSec,
-    konu:v('konu'),
-    aciklama:v('aciklama')
-  };
+  const tas={id:Date.now(),isim,tarihLabel:nowLabel(),bolgeAdi:D.bolgeAdi,seciliVardiya:D.form.seciliVardiya,parkSec:D.form.parkSec,konu:v('konu'),aciklama:v('aciklama')};
   D.taslaklar.unshift(tas);
   try{localStorage.setItem(LS,JSON.stringify(D));}catch(e){}
-  modalKapat('tasModal');
-  renderTaslaklar();
-  showToast('💾 Taslak kaydedildi!');
+  modalKapat('tasModal');renderTaslaklar();showToast('💾 Taslak kaydedildi!');
 }
 function taslagiYukle(id){
-  const t=D.taslaklar.find(x=>x.id===id);
-  if(!t)return;
+  const t=D.taslaklar.find(x=>x.id===id);if(!t)return;
   const n=nowStr();
-  // Tarihi ve saati şimdiki zamanla güncelle
   el('raporTarih').value=n.ti;
   el('raporSaat').value=n.sa;
   el('konu').value=t.konu||'';
@@ -430,10 +433,7 @@ function taslagiYukle(id){
   el('bolgeAdi').value=t.bolgeAdi||D.bolgeAdi;
   D.form.seciliVardiya=t.seciliVardiya||D.vardiyalar[0];
   renderVardiyaButtons();
-  if(t.parkSec){
-    D.form.parkSec=t.parkSec;
-    renderParkSelect();
-  }
+  if(t.parkSec){D.form.parkSec=t.parkSec;renderParkSelect();}
   kaydet();
   switchTab('form',document.querySelectorAll('.tab-btn')[0]);
   showToast('📌 Taslak yüklendi — tarih/saat güncellendi');
@@ -442,27 +442,22 @@ function taslagiSil(id){
   if(!confirm('Bu taslak silinecek. Emin misiniz?'))return;
   D.taslaklar=D.taslaklar.filter(x=>x.id!==id);
   try{localStorage.setItem(LS,JSON.stringify(D));}catch(e){}
-  renderTaslaklar();
-  showToast('🗑️ Taslak silindi');
+  renderTaslaklar();showToast('🗑️ Taslak silindi');
 }
 function renderTaslaklar(){
   const c=el('taslaklarListesi');
   if(!D.taslaklar||D.taslaklar.length===0){
-    c.innerHTML=`<div class="empty-state"><div class="ico">📌</div><p>Henüz taslak yok.<br>Formu doldurup "Taslak Kaydet" butonuna bas.</p></div>`;
+    c.innerHTML=`<div class="empty-state"><div class="ico">📌</div><p>Henüz taslak yok.<br>Formu doldurup "💾 Taslak Kaydet" butonuna bas.</p></div>`;
     return;
   }
   c.innerHTML='';
   D.taslaklar.forEach(t=>{
     const d=document.createElement('div');d.className='tas-card';
     d.innerHTML=`
-      <div class="tas-card-top">
-        <div>
-          <div class="tas-card-name">📌 ${t.isim}</div>
-          <div class="tas-card-date">Kaydedildi: ${t.tarihLabel}</div>
-          ${t.konu?`<div class="tas-card-konu">📋 ${t.konu}</div>`:''}
-          ${t.aciklama?`<div class="tas-card-acik">${t.aciklama}</div>`:''}
-        </div>
-      </div>
+      <div class="tas-card-name">📌 ${t.isim}</div>
+      <div class="tas-card-date">Kaydedildi: ${t.tarihLabel}</div>
+      ${t.konu?`<div class="tas-card-konu">📋 ${t.konu}</div>`:''}
+      ${t.aciklama?`<div class="tas-card-acik">${t.aciklama}</div>`:''}
       <div class="tas-card-btns">
         <button class="btn-yukle" onclick="taslagiYukle(${t.id})">⚡ Yükle & Düzenle</button>
         <button class="btn-sil-k" onclick="taslagiSil(${t.id})">Sil</button>
@@ -471,124 +466,17 @@ function renderTaslaklar(){
   });
 }
 
-// ══════════════════════════════
-// RAPORLAR
-// ══════════════════════════════
-function raporuKaydet(){
-  const rapor=buildRapor();
-  const konu=v('konu')||'Rapor';
-  const r={
-    id:Date.now(),
-    baslik:konu,
-    tarihLabel:nowLabel(),
-    icerik:rapor
-  };
-  D.raporlar.unshift(r);
-  try{localStorage.setItem(LS,JSON.stringify(D));}catch(e){}
-  renderRaporlar();
-  showToast('🗂️ Rapor kaydedildi!');
-}
-function raporuGoster(id){
-  const r=D.raporlar.find(x=>x.id===id);
-  if(!r)return;
-  el('rapModalBaslik').textContent=r.baslik;
-  el('rapModalIcerik').textContent=r.icerik;
-  el('rapModal').dataset.icerik=r.icerik;
-  el('rapModal').classList.add('open');
-}
-function rapModalKopyala(){
-  const icerik=el('rapModal').dataset.icerik||el('rapModalIcerik').textContent;
-  kopyala(icerik);
-  showToast('✅ Kopyalandı!');
-}
-function raporuSil(id){
-  if(!confirm('Bu rapor silinecek. Emin misiniz?'))return;
-  D.raporlar=D.raporlar.filter(x=>x.id!==id);
-  try{localStorage.setItem(LS,JSON.stringify(D));}catch(e){}
-  renderRaporlar();
-  showToast('🗑️ Rapor silindi');
-}
-function renderRaporlar(){
-  const c=el('raporlarListesi');
-  if(!D.raporlar||D.raporlar.length===0){
-    c.innerHTML=`<div class="empty-state"><div class="ico">🗂️</div><p>Henüz kayıtlı rapor yok.<br>Form ekranında "Raporu Kaydet" butonuna bas.</p></div>`;
-    return;
-  }
-  c.innerHTML='';
-  D.raporlar.forEach(r=>{
-    const d=document.createElement('div');d.className='rap-card';
-    const once=r.icerik.slice(0,180)+(r.icerik.length>180?'...':'');
-    d.innerHTML=`
-      <div class="rap-card-top">
-        <div class="rap-card-title">🗂️ ${r.baslik}</div>
-        <div class="rap-card-time">${r.tarihLabel}</div>
-      </div>
-      <div class="rap-card-preview">${once}</div>
-      <div class="rap-card-btns">
-        <button class="btn-kop" onclick="kopyalaRapor(${r.id})">📋 Kopyala</button>
-        <button class="btn-gos" onclick="raporuGoster(${r.id})">👁️ Gör</button>
-        <button class="btn-sil-k" onclick="raporuSil(${r.id})">Sil</button>
-      </div>`;
-    c.appendChild(d);
-  });
-}
-function kopyalaRapor(id){
-  const r=D.raporlar.find(x=>x.id===id);
-  if(r){kopyala(r.icerik);showToast('✅ Rapor kopyalandı!');}
-}
-
-// ══════════════════════════════
-// TAB / UI
-// ══════════════════════════════
-function switchTab(name,btn){
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  el('panel-'+name).classList.add('active');
-  btn.classList.add('active');
-  el('formActions').style.display=(name==='form')?'block':'none';
-  if(name==='onizleme')el('previewBox').textContent=buildRapor();
-  if(name==='ayarlar'){renderVardiyaList();renderParkList();}
-  if(name==='taslaklar')renderTaslaklar();
-  if(name==='raporlar')renderRaporlar();
-}
-
 function modalKapat(id){el(id).classList.remove('open');}
-// Modalın dışına tıklayınca kapat
-document.querySelectorAll('.modal-bg').forEach(m=>{
-  m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');});
-});
-
-// Enter ile taslak kaydet
 document.addEventListener('DOMContentLoaded',()=>{
   el('tasIsim').addEventListener('keydown',e=>{if(e.key==='Enter')taslagiKaydetOnayla();});
+  document.querySelectorAll('.modal-bg').forEach(m=>{m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');});});
 });
-
-function raporOlustur(){
-  const rapor=buildRapor();
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  el('panel-onizleme').classList.add('active');
-  document.querySelectorAll('.tab-btn')[3].classList.add('active');
-  el('previewBox').textContent=rapor;
-  el('formActions').style.display='none';
-  kopyala(rapor,true);
-}
-
-function kopyala(metin, toast=false){
-  if(navigator.clipboard&&navigator.clipboard.writeText){
-    navigator.clipboard.writeText(metin).then(()=>{if(toast)showToast('✅ Rapor kopyalandı!');}).catch(()=>{kopyalaEski(metin);if(toast)showToast('📋 Rapor hazır!');});
-  } else { kopyalaEski(metin); if(toast)showToast('✅ Kopyalandı!'); }
-}
-function kopyalaEski(m){const t=document.createElement('textarea');t.value=m;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);}
-
-function showToast(msg){const t=el('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 
 function temizle(){
   ['konu','aciklama'].forEach(id=>el(id).value='');
   el('parkSec').value='';
   const n=nowStr();
-  el('raporTarih').value=n.ti;
-  el('raporSaat').value=n.sa;
+  el('raporTarih').value=n.ti;el('raporSaat').value=n.sa;
   D.form.konu='';D.form.aciklama='';D.form.parkSec='';kaydet();
 }
 
@@ -599,8 +487,7 @@ function init(){
   el('konu').value=D.form.konu||'';
   el('aciklama').value=D.form.aciklama||'';
   el('bolgeAdi').value=D.bolgeAdi||DEF.bolgeAdi;
-  renderVardiyaButtons();
-  renderParkSelect();
+  renderVardiyaButtons();renderParkSelect();
   if(D.form.parkSec)el('parkSec').value=D.form.parkSec;
   el('formActions').style.display='block';
 }
