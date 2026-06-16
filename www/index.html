@@ -291,16 +291,21 @@ async function veriDisariAktar(){
 
     // Capacitor (gerçek APK) ortamındaysak native dosya yazımı kullan
     if(window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Filesystem){
-      const { Filesystem, Directory, Encoding } = window.Capacitor.Plugins;
-      await Filesystem.writeFile({
-        path: dosyaAdi,
-        data: icerik,
-        directory: Directory.Documents,
-        encoding: Encoding.UTF8,
-        recursive: true
-      });
-      showToast('📤 Belgelerim/Documents klasörüne kaydedildi!');
-      return;
+      try{
+        const { Filesystem } = window.Capacitor.Plugins;
+        await Filesystem.writeFile({
+          path: dosyaAdi,
+          data: icerik,
+          directory: 'DOCUMENTS',
+          encoding: 'utf8',
+          recursive: true
+        });
+        showToast('📤 Belgelerim/Documents klasörüne kaydedildi!');
+        return;
+      }catch(nativeErr){
+        console.error('Native yazma hatası:', nativeErr);
+        // Native başarısız olursa aşağıdaki tarayıcı yöntemine düşer
+      }
     }
 
     // Tarayıcı (önizleme) ortamı — klasik indirme
