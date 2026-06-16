@@ -33,6 +33,12 @@ jobs:
       - name: Sync web assets to Android
         run: npx cap sync android
 
+      - name: Bump version code (so phone sees it as an update)
+        run: |
+          sed -i "s/versionCode 1/versionCode ${{ github.run_number }}/" android/app/build.gradle
+          sed -i "s/versionName \"1.0\"/versionName \"1.0.${{ github.run_number }}\"/" android/app/build.gradle
+          grep -A1 "versionCode" android/app/build.gradle
+
       - name: Make gradlew executable
         run: chmod +x android/gradlew
 
