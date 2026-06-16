@@ -113,6 +113,7 @@
   .btn-modal-danger { background:var(--danger);color:#fff;border:none; }
 </style>
 </head>
+<script src="capacitor.js"></script>
 <body>
 
 <div class="app-header">
@@ -194,6 +195,8 @@
     <div class="card-label">Bölge</div>
     <label>Bölge Adı</label>
     <input type="text" id="bolgeAdi" placeholder="Bölge adını girin..." oninput="kaydet()">
+    <label>Alan Adı <span class="auto-badge">Bölge'nin altında sabit görünür</span></label>
+    <input type="text" id="alanAdi" placeholder="Öveçler Vadisi Rekreasyon Alanı 2. Etap" oninput="kaydet()">
   </div>
   <div class="card">
     <div class="card-label">Vardiya Saatleri</div>
@@ -247,6 +250,7 @@
 const LS='cevre1_v5';
 const DEF={
   bolgeAdi:'DİKMEN BÖLGESİ',
+  alanAdi:'',
   vardiyalar:['08:00/20:00','20:00/08:00'],
   parklar:['Öveçler Vadisi Rekreasyon Alanı 1. Etap','Öveçler Vadisi Rekreasyon Alanı 2. Etap','Dikmen Vadisi Parkı','Botanik Parkı'],
   form:{raporTarih:'',raporSaat:'',seciliVardiya:'08:00/20:00',parkSec:'',konu:'',aciklama:''},
@@ -260,6 +264,7 @@ function dm(t,s){for(const k in s){if(s[k]&&typeof s[k]==='object'&&!Array.isArr
 let st=null;
 function kaydet(){
   D.bolgeAdi=v('bolgeAdi')||DEF.bolgeAdi;
+  D.alanAdi=v('alanAdi');
   D.form.raporTarih=v('raporTarih');
   D.form.raporSaat=v('raporSaat');
   D.form.parkSec=v('parkSec');
@@ -270,25 +275,47 @@ function kaydet(){
 }
 
 // ── VERİ DIŞA/İÇE AKTAR ──
-function veriDisariAktar(){
+async function veriDisariAktar(){
   try{
     const yedek={
       versiyon:1,
       tarih: nowLabel(),
       bolgeAdi:D.bolgeAdi,
+      alanAdi:D.alanAdi,
       vardiyalar:D.vardiyalar,
       parklar:D.parklar,
       taslaklar:D.taslaklar
     };
-    const blob=new Blob([JSON.stringify(yedek,null,2)],{type:'application/json'});
+    const icerik=JSON.stringify(yedek,null,2);
+    const dosyaAdi=`cevre1-yedek-${nowDosyaAdi()}.json`;
+
+    // Capacitor (gerçek APK) ortamındaysak native dosya yazımı kullan
+    if(window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Filesystem){
+      const { Filesystem, Directory, Encoding } = window.Capacitor.Plugins;
+      await Filesystem.writeFile({
+        path: dosyaAdi,
+        data: icerik,
+        directory: Directory.Documents,
+        encoding: Encoding.UTF8,
+        recursive: true
+      });
+      showToast('📤 Belgelerim/Documents klasörüne kaydedildi!');
+      return;
+    }
+
+    // Tarayıcı (önizleme) ortamı — klasik indirme
+    const blob=new Blob([icerik],{type:'application/json'});
     const url=URL.createObjectURL(blob);
     const a=document.createElement('a');
     a.href=url;
-    a.download=`cevre1-yedek-${nowDosyaAdi()}.json`;
+    a.download=dosyaAdi;
     document.body.appendChild(a);a.click();document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    showToast('📤 Yedek dosyası indirildi!');
-  }catch(e){showToast('❌ Dışa aktarma hatası');}
+    showToast('📤 Yedek dosyası indirildi! (Tarayıcı modu)');
+  }catch(e){
+    console.error(e);
+    showToast('❌ Dışa aktarma hatası: '+(e.message||'bilinmeyen'));
+  }
 }
 
 function veriIceAktar(input){
@@ -299,14 +326,19 @@ function veriIceAktar(input){
       const yedek=JSON.parse(e.target.result);
       if(!yedek.taslaklar&&!yedek.parklar){showToast('❌ Geçersiz yedek dosyası');return;}
       if(yedek.bolgeAdi)D.bolgeAdi=yedek.bolgeAdi;
+      if(yedek.alanAdi!==undefined)D.alanAdi=yedek.alanAdi;
       if(yedek.vardiyalar)D.vardiyalar=yedek.vardiyalar;
       if(yedek.parklar)D.parklar=yedek.parklar;
       if(yedek.taslaklar)D.taslaklar=yedek.taslaklar;
       localStorage.setItem(LS,JSON.stringify(D));
       init();
       showToast('📥 Veriler başarıyla yüklendi!');
-    }catch(err){showToast('❌ Dosya okunamadı');}
+    }catch(err){
+      console.error(err);
+      showToast('❌ Dosya okunamadı: '+(err.message||'bozuk dosya'));
+    }
   };
+  reader.onerror=()=>showToast('❌ Dosya okuma hatası');
   reader.readAsText(f);
   input.value='';
 }
@@ -386,6 +418,7 @@ function buildRapor(){
   let m='';
   m+=`Çevre-1 Güvenlik Müdürlüğü\n\n`;
   m+=`${bolge}\n`;
+  if(D.alanAdi&&D.alanAdi.trim())m+=`${D.alanAdi.trim()}\n`;
   if(park)m+=`${park}\n`;
   m+=`\nKonu: ${konu}\n\n`;
   m+=`Açıklama:\n`;
@@ -487,6 +520,7 @@ function init(){
   el('konu').value=D.form.konu||'';
   el('aciklama').value=D.form.aciklama||'';
   el('bolgeAdi').value=D.bolgeAdi||DEF.bolgeAdi;
+  el('alanAdi').value=D.alanAdi||'';
   renderVardiyaButtons();renderParkSelect();
   if(D.form.parkSec)el('parkSec').value=D.form.parkSec;
   el('formActions').style.display='block';
