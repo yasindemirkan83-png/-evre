@@ -94,6 +94,21 @@
   .save-indicator { display:inline-flex;align-items:center;font-size:10px;color:var(--success);font-weight:600;margin-left:8px;opacity:0;transition:opacity .4s; }
   .save-indicator.show { opacity:1; }
 
+  /* BÖLGE KARTLARI */
+  .bolge-card { background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:border-color .15s; }
+  .bolge-card.selected { border-color:var(--blue);background:#eef4ff; }
+  .bolge-card-ico { width:36px;height:36px;border-radius:8px;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0; }
+  .bolge-card.selected .bolge-card-ico { background:var(--blue-light); }
+  .bolge-card-info { flex:1;min-width:0; }
+  .bolge-card-name { font-size:13px;font-weight:700;color:var(--navy); }
+  .bolge-card-alan { font-size:11px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+  .bolge-card-tick { font-size:18px;color:var(--blue);flex-shrink:0; }
+  .bolge-edit-wrap { background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:8px; }
+  .bolge-edit-row { display:flex;gap:6px;margin-bottom:6px;align-items:center; }
+  .bolge-edit-row label { margin:0;min-width:68px;flex-shrink:0; }
+  .bolge-edit-row input { flex:1;font-size:13px; }
+  .bolge-edit-row input[type=text] { padding:8px 10px; }
+
   /* VERİ YÖNETİMİ BUTONLARI */
   .veri-btn { width:100%;padding:12px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px; }
   .veri-btn-export { background:#e8f8ef;color:var(--success);border:1.5px solid #b7e4c7; }
@@ -117,7 +132,7 @@
 <body>
 
 <div class="app-header">
-  <div class="shield">🛡️</div>
+  <div class="shield"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L4 5.5V11C4 15.418 7.582 19.5 12 21C16.418 19.5 20 15.418 20 11V5.5L12 2Z" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1.5" stroke-linejoin="round"/><path d="M8.5 11.5L10.5 13.5L15.5 8.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="11" r="1" fill="white" opacity="0"/></svg></div>
   <div class="hdr-text">
     <h1>ÇEVRE-1 GÜVENLİK MÜDÜRLÜĞÜ</h1>
     <p>Olay Tutanak Sistemi <span id="saveIndicator" class="save-indicator">✓ Kaydedildi</span></p>
@@ -155,16 +170,20 @@
   <div class="card">
     <div class="card-label">Konu</div>
     <label>Konu Başlığı</label>
-    <input type="text" id="konu" placeholder="Etkinlik / olay konusunu yazın..." oninput="kaydet()">
+    <input type="text" id="konu" placeholder="Etkinlik / olay konusunu yazın..." oninput="kaydet()" inputmode="text" autocomplete="off" autocorrect="on" autocapitalize="sentences" spellcheck="true">
   </div>
   <div class="card">
-    <div class="card-label">Açıklama</div>
+    <div class="card-label">Bölge & Park / Alan</div>
+    <label>Bölge</label>
+    <select id="bolgeSecForm" onchange="bolgeFormSecildi()">
+      <option value="">— Bölge seçin —</option>
+    </select>
     <label>Park / Alan</label>
     <select id="parkSec" onchange="parkSecildi()">
       <option value="">— Park seçin —</option>
     </select>
     <label>Açıklama Metni</label>
-    <textarea id="aciklama" rows="6" placeholder="itibariyle olay gerçekleşmiştir. Yetkili kişilerle görüşülmüş..." oninput="kaydet()"></textarea>
+    <textarea id="aciklama" rows="6" placeholder="itibariyle olay gerçekleşmiştir. Yetkili kişilerle görüşülmüş..." oninput="kaydet()" inputmode="text" autocomplete="off" autocorrect="on" autocapitalize="sentences" spellcheck="true"></textarea>
   </div>
 </div>
 
@@ -192,11 +211,10 @@
     <div style="margin-top:6px" class="info-static">Bilginize Müdürüm.</div>
   </div>
   <div class="card">
-    <div class="card-label">Bölge</div>
-    <label>Bölge Adı</label>
-    <input type="text" id="bolgeAdi" placeholder="Bölge adını girin..." oninput="kaydet()">
-    <label>Alan Adı <span class="auto-badge">Bölge'nin altında sabit görünür</span></label>
-    <input type="text" id="alanAdi" placeholder="Öveçler Vadisi Rekreasyon Alanı 2. Etap" oninput="kaydet()">
+    <div class="card-label">Bölgeler</div>
+    <p class="section-note">Her bölgenin altına alan adı da ekleyebilirsiniz. Form ekranında seçilen bölge tutanağa yansır.</p>
+    <div class="item-list" id="bolgeList"></div>
+    <button class="btn-add" onclick="bolgeEkle()">+ Bölge Ekle</button>
   </div>
   <div class="card">
     <div class="card-label">Vardiya Saatleri</div>
@@ -247,13 +265,17 @@
 </div>
 
 <script>
-const LS='cevre1_v5';
+const LS='cevre1_v6';
 const DEF={
+  bolgeler:[
+    {id:1,ad:'DİKMEN BÖLGESİ',alanAdi:'ÖVEÇLER VADİSİ PARKI'},
+    {id:2,ad:'ÇANKAYA BÖLGESİ',alanAdi:''}
+  ],
   bolgeAdi:'DİKMEN BÖLGESİ',
-  alanAdi:'',
+  alanAdi:'ÖVEÇLER VADİSİ PARKI',
   vardiyalar:['08:00/20:00','20:00/08:00'],
   parklar:['Öveçler Vadisi Rekreasyon Alanı 1. Etap','Öveçler Vadisi Rekreasyon Alanı 2. Etap','Dikmen Vadisi Parkı','Botanik Parkı'],
-  form:{raporTarih:'',raporSaat:'',seciliVardiya:'08:00/20:00',parkSec:'',konu:'',aciklama:''},
+  form:{raporTarih:'',raporSaat:'',seciliVardiya:'08:00/20:00',parkSec:'',konu:'',aciklama:'',seciliBolgeId:1},
   taslaklar:[]
 };
 let D=JSON.parse(JSON.stringify(DEF));
@@ -263,8 +285,6 @@ function dm(t,s){for(const k in s){if(s[k]&&typeof s[k]==='object'&&!Array.isArr
 
 let st=null;
 function kaydet(){
-  D.bolgeAdi=v('bolgeAdi')||DEF.bolgeAdi;
-  D.alanAdi=v('alanAdi');
   D.form.raporTarih=v('raporTarih');
   D.form.raporSaat=v('raporSaat');
   D.form.parkSec=v('parkSec');
@@ -278,8 +298,9 @@ function kaydet(){
 async function veriDisariAktar(){
   try{
     const yedek={
-      versiyon:1,
+      versiyon:2,
       tarih: nowLabel(),
+      bolgeler:D.bolgeler,
       bolgeAdi:D.bolgeAdi,
       alanAdi:D.alanAdi,
       vardiyalar:D.vardiyalar,
@@ -329,7 +350,8 @@ function veriIceAktar(input){
   reader.onload=e=>{
     try{
       const yedek=JSON.parse(e.target.result);
-      if(!yedek.taslaklar&&!yedek.parklar){showToast('❌ Geçersiz yedek dosyası');return;}
+      if(!yedek.taslaklar&&!yedek.parklar&&!yedek.bolgeler){showToast('❌ Geçersiz yedek dosyası');return;}
+      if(yedek.bolgeler)D.bolgeler=yedek.bolgeler;
       if(yedek.bolgeAdi)D.bolgeAdi=yedek.bolgeAdi;
       if(yedek.alanAdi!==undefined)D.alanAdi=yedek.alanAdi;
       if(yedek.vardiyalar)D.vardiyalar=yedek.vardiyalar;
@@ -393,6 +415,33 @@ function renderParkSelect(){
   D.parklar.forEach(p=>{const o=document.createElement('option');o.value=p;o.textContent=p;if(p===c)o.selected=true;s.appendChild(o);});
 }
 function parkSecildi(){D.form.parkSec=v('parkSec');kaydet();}
+
+// ── BÖLGE ──
+function renderBolgeSelect(){
+  const s=el('bolgeSecForm');if(!s)return;
+  const c=D.form.seciliBolgeId;
+  s.innerHTML='<option value="">— Bölge seçin —</option>';
+  D.bolgeler.forEach(b=>{const o=document.createElement('option');o.value=b.id;o.textContent=b.ad;if(b.id===c)o.selected=true;s.appendChild(o);});
+}
+function bolgeFormSecildi(){
+  const id=parseInt(el('bolgeSecForm').value)||null;
+  D.form.seciliBolgeId=id;
+  kaydet();
+}
+function renderBolgeList(){
+  const l=el('bolgeList');if(!l)return;l.innerHTML='';
+  D.bolgeler.forEach((b,i)=>{
+    const d=document.createElement('div');d.className='bolge-edit-wrap';
+    d.innerHTML=`
+      <div class="bolge-edit-row"><label>Bölge Adı</label><input type="text" value="${b.ad.replace(/"/g,'&quot;')}" oninput="D.bolgeler[${i}].ad=this.value;renderBolgeSelect();kaydet();"></div>
+      <div class="bolge-edit-row"><label>Alan Adı</label><input type="text" value="${(b.alanAdi||'').replace(/"/g,'&quot;')}" placeholder="(isteğe bağlı)" oninput="D.bolgeler[${i}].alanAdi=this.value;kaydet();"></div>
+      <button class="btn-rm" style="font-size:13px;color:var(--danger);background:#fff5f5;border:1px solid #f5c6c6;border-radius:6px;padding:5px 10px;cursor:pointer;margin-top:4px;" onclick="bolgeSil(${i})">✕ Bölgeyi Sil</button>`;
+    l.appendChild(d);
+  });
+}
+function bolgeEkle(){D.bolgeler.push({id:Date.now(),ad:'YENİ BÖLGE',alanAdi:''});renderBolgeList();renderBolgeSelect();kaydet();}
+function bolgeSil(i){if(D.bolgeler.length<=1){showToast('❌ En az bir bölge olmalı');return;}D.bolgeler.splice(i,1);renderBolgeList();renderBolgeSelect();kaydet();}
+
 function renderParkList(){
   const l=el('parkList');l.innerHTML='';
   D.parklar.forEach((p,i)=>{const d=document.createElement('div');d.className='list-item';d.innerHTML=`<input type="text" value="${p.replace(/"/g,'&quot;')}" onchange="D.parklar[${i}]=this.value;renderParkSelect();kaydet();"><button class="btn-rm" onclick="parkSil(${i})">✕</button>`;l.appendChild(d);});
@@ -407,13 +456,15 @@ function switchTab(name,btn){
   el('panel-'+name).classList.add('active');btn.classList.add('active');
   el('formActions').style.display=(name==='form')?'block':'none';
   if(name==='onizleme')el('previewBox').textContent=buildRapor();
-  if(name==='ayarlar'){renderVardiyaList();renderParkList();}
+  if(name==='ayarlar'){renderVardiyaList();renderParkList();renderBolgeList();}
   if(name==='taslaklar')renderTaslaklar();
 }
 
 // ── RAPOR ──
 function buildRapor(){
-  const bolge=(D.bolgeAdi||'DİKMEN BÖLGESİ').toUpperCase();
+  const secBolge=D.bolgeler.find(b=>b.id===D.form.seciliBolgeId)||D.bolgeler[0]||{ad:'DİKMEN BÖLGESİ',alanAdi:''};
+  const bolge=secBolge.ad.toUpperCase();
+  const alan=secBolge.alanAdi||'';
   const konu=v('konu')||'—';
   const rT=fTarih(v('raporTarih'));
   const rS=v('raporSaat')||'--:--';
@@ -423,7 +474,7 @@ function buildRapor(){
   let m='';
   m+=`Çevre-1 Güvenlik Müdürlüğü\n\n`;
   m+=`${bolge}\n`;
-  if(D.alanAdi&&D.alanAdi.trim())m+=`${D.alanAdi.trim()}\n`;
+  if(alan.trim())m+=`${alan.trim()}\n`;
   m+=`\nKonu: ${konu}\n\n`;
   m+=`Açıklama:\n`;
   m+=`\t${rT} tarihi'nde ${vardiya} vardiyası'nda Saat ${rS}'de ${parkEki(park)}`;
@@ -455,7 +506,7 @@ function showToast(msg){const t=el('toast');t.textContent=msg;t.classList.add('s
 function taslagiKaydet(){kaydet();el('tasIsim').value='';el('tasModal').classList.add('open');setTimeout(()=>el('tasIsim').focus(),200);}
 function taslagiKaydetOnayla(){
   const isim=el('tasIsim').value.trim()||'İsimsiz Taslak';
-  const tas={id:Date.now(),isim,tarihLabel:nowLabel(),bolgeAdi:D.bolgeAdi,seciliVardiya:D.form.seciliVardiya,parkSec:D.form.parkSec,konu:v('konu'),aciklama:v('aciklama')};
+  const tas={id:Date.now(),isim,tarihLabel:nowLabel(),seciliBolgeId:D.form.seciliBolgeId,seciliVardiya:D.form.seciliVardiya,parkSec:D.form.parkSec,konu:v('konu'),aciklama:v('aciklama')};
   D.taslaklar.unshift(tas);
   try{localStorage.setItem(LS,JSON.stringify(D));}catch(e){}
   modalKapat('tasModal');renderTaslaklar();showToast('💾 Taslak kaydedildi!');
@@ -467,8 +518,9 @@ function taslagiYukle(id){
   el('raporSaat').value=n.sa;
   el('konu').value=t.konu||'';
   el('aciklama').value=t.aciklama||'';
-  el('bolgeAdi').value=t.bolgeAdi||D.bolgeAdi;
+  D.form.seciliBolgeId=t.seciliBolgeId||D.bolgeler[0]?.id||1;
   D.form.seciliVardiya=t.seciliVardiya||D.vardiyalar[0];
+  renderBolgeSelect();
   renderVardiyaButtons();
   if(t.parkSec){D.form.parkSec=t.parkSec;renderParkSelect();}
   kaydet();
@@ -523,8 +575,7 @@ function init(){
   el('raporSaat').value=D.form.raporSaat||n.sa;
   el('konu').value=D.form.konu||'';
   el('aciklama').value=D.form.aciklama||'';
-  el('bolgeAdi').value=D.bolgeAdi||DEF.bolgeAdi;
-  el('alanAdi').value=D.alanAdi||'';
+  renderBolgeSelect();
   renderVardiyaButtons();renderParkSelect();
   if(D.form.parkSec)el('parkSec').value=D.form.parkSec;
   el('formActions').style.display='block';
